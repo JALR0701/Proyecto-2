@@ -52,6 +52,7 @@ void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int 
 int Game_Menu(int started);
 void characterMenu(void);
 void musicMenu(void);
+void gamePlay(int song);
 
 //***************************************************************************************************************************************
 // Variables
@@ -276,7 +277,24 @@ void loop() {
         chooseSong = 0;
         characterMenu();
         Serial.println("Menu Personaje");
-    }
+    }else if (button == down){
+        tone(PinBuzzer, 500, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 500, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        chooseSong = 0;
+        gamePlay(songSelect);
+        Serial.print("Cancion: ");
+        Serial.println(songSelect);
+      }
   }
 }
 //***************************************************************************************************************************************
@@ -939,4 +957,147 @@ void musicMenu (void){
     LCD_Bitmap(200, 223, 16, 16, arrow_up);
     text3 = "Return";
     LCD_Print(text3, 224, 224, 1, 0xffff, 0x00);
+}
+
+void gamePlay(int song){
+  File myFile;
+  String palabra;
+  char caracter;
+  char numero [5];
+  int bits = 0, posx = 0, posy = 0, val = 0, color = 0; 
+
+  LCD_Clear(0x00);
+  String text4 = "Loading...";
+  LCD_Print(text4, 85, 120, 2, 0xffff, 0x00);
+  
+//***************************************************************************************************************************************
+// Imprimir fondo de pantalla en la LCD
+//***************************************************************************************************************************************
+  if (song == 1){
+    myFile = SD.open("Zelda.txt");
+    if (myFile) {
+      Serial.println("Zelda.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        //Serial.print(caracter);
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          fondo[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 640){
+          //Serial.println();
+//          for (int x = 0; x <= 640; x++){
+//            Serial.print(fondo[x]);
+//          }
+          LCD_Bitmap(0, posy, 320, 1, fondo);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening Zelda.txt");
+    }
+    Serial.println("Fondo de cancion cargado exitosamente");
+    
+  }else if (song == 2){
+    myFile = SD.open("LedZ.txt");
+    if (myFile) {
+      Serial.println("LedZ.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        //Serial.print(caracter);
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          fondo[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 640){
+          //Serial.println();
+//          for (int x = 0; x <= 640; x++){
+//            Serial.print(fondo[x]);
+//          }
+          LCD_Bitmap(0, posy, 320, 1, fondo);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening LedZ.txt");
+    }
+    Serial.println("Fondo de cancion cargado exitosamente");
+    
+  }else if (song == 3){
+    myFile = SD.open("Kirby.txt");
+    if (myFile) {
+      Serial.println("Kirby.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        //Serial.print(caracter);
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          fondo[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 640){
+          //Serial.println();
+//          for (int x = 0; x <= 640; x++){
+//            Serial.print(fondo[x]);
+//          }
+          LCD_Bitmap(0, posy, 320, 1, fondo);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening Kirby.txt");
+    }
+    Serial.println("Fondo de cancion cargado exitosamente");
+    
+  }
+
+//***************************************************************************************************************************************
+// Fondo de pantalla cargado exitosamente
+//***************************************************************************************************************************************
+  delay(1000);
+  if (modeSelect == 1){
+    FillRect(108, 64, 104, 160, 0x00);
+    
+  }else if (modeSelect == 2){
+    
+  }
+
 }

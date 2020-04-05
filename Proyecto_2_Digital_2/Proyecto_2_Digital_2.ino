@@ -49,13 +49,19 @@ void LCD_Print(String text, int x, int y, int fontSize, int color, int backgroun
 void LCD_Bitmap(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned char bitmap[]);
 void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int columns, int index, char flip, char offset);
 
-void Game_Menu(void);
+int Game_Menu(int started);
+void characterMenu(void);
 
 //***************************************************************************************************************************************
 // Variables
 //***************************************************************************************************************************************
 
-
+int modeSelect = 1;
+int started = 0, chooseCharacter = 0;;
+String text;
+int button;
+int escritor = 0;
+int PinBuzzer = PC_4;
 
 //***************************************************************************************************************************************
 // Inicialización
@@ -79,7 +85,10 @@ void setup() {
   GPIOPadConfigSet(GPIO_PORTB_BASE, 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPU); 
   LCD_Init();
   LCD_Clear(0x00);
-  Game_Menu();
+  started = Game_Menu(started);
+  if (started == 1){
+    Serial.println("started");
+  }
 
 //LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int columns, int index, char flip, char offset);
 //LCD_Bitmap(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned char bitmap[]);
@@ -91,6 +100,54 @@ void setup() {
 //***************************************************************************************************************************************
 void loop() {
 // Por el momento no hay nada en el loop
+  while(started){
+    button = Serial.read();
+    if (modeSelect == 1){
+      text = "1 Player";
+      LCD_Print(text, 90, 135, 2, 0x1007, 0xffff);
+      text = "2 Player";
+      LCD_Print(text, 90, 180, 2, 0xffff, 0x1007);
+    }else if (modeSelect == 2){
+      text = "1 Player";
+      LCD_Print(text, 90, 135, 2, 0xffff, 0x1007);
+      text = "2 Player";
+      LCD_Print(text, 90, 180, 2, 0x1007, 0xffff);
+    }
+    if (button == 49){
+      modeSelect = 1;
+      tone(PinBuzzer, 440, 100 * .7);
+    }else if (button == 50){
+      tone(PinBuzzer, 440, 100 * .7);
+      modeSelect = 2;
+    }else if (button == 51){
+      tone(PinBuzzer, 500, 170 * .7);
+      delay(170);    
+      noTone(PinBuzzer);
+      tone(PinBuzzer, 440, 170 * .7);
+      delay(170);    
+      noTone(PinBuzzer);
+      tone(PinBuzzer, 500, 170 * .7);
+      delay(170);    
+      noTone(PinBuzzer);
+      tone(PinBuzzer, 440, 170 * .7);
+      delay(170);    
+      noTone(PinBuzzer);
+      Serial.println("");
+      characterMenu();
+      chooseCharacter = 1;
+      started = 0;
+    }
+  }
+  while (chooseCharacter == 1){
+    if (escritor == 0){
+      Serial.println("");
+      Serial.print("Modo de juego seleccionado: ");
+      Serial.print(modeSelect);
+      Serial.print(" Player");
+      escritor = 1;
+    }
+    
+  }
 }
 //***************************************************************************************************************************************
 // Función para inicializar LCD
@@ -322,7 +379,7 @@ void LCD_Print(String text, int x, int y, int fontSize, int color, int backgroun
   
   char charInput ;
   int cLength = text.length();
-  Serial.println(cLength,DEC);
+  //Serial.println(cLength,DEC);
   int charDec ;
   int c ;
   int charHex ;
@@ -330,7 +387,7 @@ void LCD_Print(String text, int x, int y, int fontSize, int color, int backgroun
   text.toCharArray(char_array, cLength+1) ;
   for (int i = 0; i < cLength ; i++) {
     charInput = char_array[i];
-    Serial.println(char_array[i]);
+    //Serial.println(char_array[i]);
     charDec = int(charInput);
     digitalWrite(LCD_CS, LOW);
     SetWindows(x + (i * fontXSize), y, x + (i * fontXSize) + fontXSize - 1, y + fontYSize );
@@ -419,23 +476,19 @@ void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int 
   digitalWrite(LCD_CS, HIGH);
 }
 
-void Game_Menu(void){
+int Game_Menu(int started){
   File myFile;
   String palabra;
   char caracter;
   char numero [5];
-  int bits = 0, posx = 0, posy = 0, val = 0;
+  int bits = 0, posx = 0, posy = 0, val = 0, color = 0;
 
   int melody[] = { 
   698, 587, 440, 587, 698, 587, 440, 587, 698, 523, 440, 523, 698, 523, 440, 523, 659, 554, 440, 554, 659, 554, 440, 554, 659, 554, 440, 554, 659, 554, 440, 554, 587 
   };
   int noteDurations[] = { 
   176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 1056
-  };
-  
-  int PinBuzzer = PC_4;
-
-  
+  };  
   
   String text1 = "Loading...";
   LCD_Print(text1, 85, 120, 2, 0xffff, 0x00);
@@ -479,26 +532,189 @@ void Game_Menu(void){
       // if the file didn't open, print an error:
       Serial.println("error opening FondoMod.txt");
     }
-    Serial.println("");
     Serial.println("Fondo de pantalla cargado exitosamente");
 
 //***************************************************************************************************************************************
 // Fondo de pantalla cargado exitosamente
 //***************************************************************************************************************************************
     
-    text1 = "8-BIT";
-    LCD_Print(text1, 110, 30, 2, 0xffff, 0x1007);
-    text1 = "SONGS";
-    LCD_Print(text1, 110, 55, 2, 0xffff, 0x1007);
 
     for (int thisNote = 0; thisNote < sizeof(melody) / sizeof(int); thisNote++){    
+      text1 = "8-BIT";
+      LCD_Print(text1, 120, 30, 2, random(0xffff), 0x1007);
+      text1 = "SONGS";
+      LCD_Print(text1, 1220, 55, 2, random(0xffff), 0x1007);
       tone(PinBuzzer, melody[thisNote], noteDurations[thisNote] * .7);    
       delay(noteDurations[thisNote]);    
       noTone(PinBuzzer);
     }
 
+    text1 = "8-BIT";
+    LCD_Print(text1, 120, 30, 2, 0xffff, 0x1007);
+    text1 = "SONGS";
+    LCD_Print(text1, 120, 55, 2, 0xffff, 0x1007);
+
     text1 = "1 Player";
     LCD_Print(text1, 90, 135, 2, 0xffff, 0x1007);
     text1 = "2 Player";
     LCD_Print(text1, 90, 180, 2, 0xffff, 0x1007);
+    started = 1;
+    return (started);
+}
+
+void characterMenu (void){
+  File myFile;
+  String palabra;
+  char caracter;
+  char numero [5];
+  int bits = 0, posx = 0, posy = 66, val = 0, color = 0;
+  String text2;
+
+    LCD_Clear(0x00);
+    text2 = "CHOOSE YOUR";
+    LCD_Print(text2, 70, 10, 2, 0xffff, 0x00);
+    text2 = "CHARACTER";
+    LCD_Print(text2, 85, 25, 2, 0xffff, 0x00);
+    
+    myFile = SD.open("David.txt");
+    if (myFile) {
+      Serial.println("David.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          character[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 128){
+          LCD_Bitmap(8, posy, 64, 1, character);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+      text2 = "David";
+      LCD_Print(text2, 18, 135, 1, 0xffff, 0x00);
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening David.txt");
+    }
+    posy = 66;
+    bits = 0;
+    Serial.println("David cargado exitosamente");
+
+    myFile = SD.open("Alberto.txt");
+    if (myFile) {
+      Serial.println("Alberto.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          character[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 128){
+          LCD_Bitmap(88, posy, 64, 1, character);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+      text2 = "Alberto";
+      LCD_Print(text2, 88, 135, 1, 0xffff, 0x00);
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening Alberto.txt");
+    }
+    posy = 66;
+    bits = 0;
+    Serial.println("Alberto cargado exitosamente");
+
+    myFile = SD.open("Emilio.txt");
+    if (myFile) {
+      Serial.println("Emilio.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          character[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 128){
+          LCD_Bitmap(168, posy, 64, 1, character);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+      text2 = "Emilio";
+      LCD_Print(text2, 175, 135, 1, 0xffff, 0x00);
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening Emilio.txt");
+    }
+    posy = 66;
+    bits = 0;
+    Serial.println("Emilio cargado exitosamente");
+
+    myFile = SD.open("Aina.txt");
+    if (myFile) {
+      Serial.println("Aina.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          character[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 128){
+          LCD_Bitmap(248, posy, 64, 1, character);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+      text2 = "Aina";
+      LCD_Print(text2, 264, 135, 1, 0xffff, 0x00);
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening Aina.txt");
+    }
+    Serial.println("Aina cargado exitosamente");
 }

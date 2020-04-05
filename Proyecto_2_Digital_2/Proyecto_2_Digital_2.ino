@@ -62,6 +62,8 @@ String text;
 int button;
 int escritor = 0;
 int PinBuzzer = PC_4;
+int up = 56, left = 52, down = 50, right = 54;
+int characterSelect = 1;
 
 //***************************************************************************************************************************************
 // Inicialización
@@ -84,7 +86,6 @@ void setup() {
   
   GPIOPadConfigSet(GPIO_PORTB_BASE, 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD_WPU); 
   LCD_Init();
-  LCD_Clear(0x00);
   started = Game_Menu(started);
   if (started == 1){
     Serial.println("started");
@@ -104,22 +105,22 @@ void loop() {
     button = Serial.read();
     if (modeSelect == 1){
       text = "1 Player";
-      LCD_Print(text, 90, 135, 2, 0x1007, 0xffff);
+      LCD_Print(text, 8, 140, 2, 0x1007, 0xffff);
       text = "2 Player";
-      LCD_Print(text, 90, 180, 2, 0xffff, 0x1007);
+      LCD_Print(text, 185, 140, 2, 0xffff, 0x1007);
     }else if (modeSelect == 2){
       text = "1 Player";
-      LCD_Print(text, 90, 135, 2, 0xffff, 0x1007);
+      LCD_Print(text, 8, 140, 2, 0xffff, 0x1007);
       text = "2 Player";
-      LCD_Print(text, 90, 180, 2, 0x1007, 0xffff);
+      LCD_Print(text, 185, 140, 2, 0x1007, 0xffff);
     }
-    if (button == 49){
+    if (button == left){
       modeSelect = 1;
       tone(PinBuzzer, 440, 100 * .7);
-    }else if (button == 50){
+    }else if (button == right){
       tone(PinBuzzer, 440, 100 * .7);
       modeSelect = 2;
-    }else if (button == 51){
+    }else if (button == down){
       tone(PinBuzzer, 500, 170 * .7);
       delay(170);    
       noTone(PinBuzzer);
@@ -138,15 +139,98 @@ void loop() {
       started = 0;
     }
   }
-  while (chooseCharacter == 1){
+  while (chooseCharacter){
     if (escritor == 0){
       Serial.println("");
       Serial.print("Modo de juego seleccionado: ");
       Serial.print(modeSelect);
-      Serial.print(" Player");
+      Serial.println(" Player");
       escritor = 1;
     }
-    
+    if (modeSelect == 1){
+      button = Serial.read();
+      if (characterSelect == 1){
+        text = "David";
+        LCD_Print(text, 18, 135, 1, 0x00, 0xffff);
+        text = "Alberto";
+        LCD_Print(text, 88, 135, 1, 0xffff, 0x00);
+        text = "Emilio";
+        LCD_Print(text, 175, 135, 1, 0xffff, 0x00);
+        text = "Aina";
+        LCD_Print(text, 264, 135, 1, 0xffff, 0x00);
+      }else if (characterSelect == 2){
+        text = "David";
+        LCD_Print(text, 18, 135, 1, 0xffff, 0x00);
+        text = "Alberto";
+        LCD_Print(text, 88, 135, 1, 0x00, 0xffff);
+        text = "Emilio";
+        LCD_Print(text, 175, 135, 1, 0xffff, 0x00);
+        text = "Aina";
+        LCD_Print(text, 264, 135, 1, 0xffff, 0x00);
+      }else if (characterSelect == 3){
+        text = "David";
+        LCD_Print(text, 18, 135, 1, 0xffff, 0x00);
+        text = "Alberto";
+        LCD_Print(text, 88, 135, 1, 0xffff, 0x00);
+        text = "Emilio";
+        LCD_Print(text, 175, 135, 1, 0x00, 0xffff);
+        text = "Aina";
+        LCD_Print(text, 264, 135, 1, 0xffff, 0x00);
+      }else if (characterSelect == 4){
+        text = "David";
+        LCD_Print(text, 18, 135, 1, 0xffff, 0x00);
+        text = "Alberto";
+        LCD_Print(text, 88, 135, 1, 0xffff, 0x00);
+        text = "Emilio";
+        LCD_Print(text, 175, 135, 1, 0xffff, 0x00);
+        text = "Aina";
+        LCD_Print(text, 264, 135, 1, 0x00, 0xffff);
+      }
+      if (button == up){
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 500, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 500, 170 * .7);
+        chooseCharacter = 0;
+        escritor = 0;
+        started = Game_Menu(started);
+        Serial.println("Menu principal");
+      }else if (button == left){
+        tone(PinBuzzer, 440, 100 * .7);
+        characterSelect --;
+        if (characterSelect <= 1){
+          characterSelect = 1;
+        }
+      }else if (button == right){
+        tone(PinBuzzer, 440, 100 * .7);
+        characterSelect ++;
+        if (characterSelect >= 4){
+          characterSelect = 4;
+        }
+      }else if (button == down){
+        tone(PinBuzzer, 500, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 500, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        chooseCharacter = 0;
+        Serial.print("Personaje escogido: ");
+        Serial.println(characterSelect);
+      }
+    }
   }
 }
 //***************************************************************************************************************************************
@@ -489,7 +573,8 @@ int Game_Menu(int started){
   int noteDurations[] = { 
   176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 1056
   };  
-  
+
+  LCD_Clear(0x00);
   String text1 = "Loading...";
   LCD_Print(text1, 85, 120, 2, 0xffff, 0x00);
   
@@ -543,7 +628,7 @@ int Game_Menu(int started){
       text1 = "8-BIT";
       LCD_Print(text1, 120, 30, 2, random(0xffff), 0x1007);
       text1 = "SONGS";
-      LCD_Print(text1, 1220, 55, 2, random(0xffff), 0x1007);
+      LCD_Print(text1, 120, 55, 2, random(0xffff), 0x1007);
       tone(PinBuzzer, melody[thisNote], noteDurations[thisNote] * .7);    
       delay(noteDurations[thisNote]);    
       noTone(PinBuzzer);
@@ -554,10 +639,19 @@ int Game_Menu(int started){
     text1 = "SONGS";
     LCD_Print(text1, 120, 55, 2, 0xffff, 0x1007);
 
+    FillRect(0, 222, 320, 18, 0x00);
+    LCD_Bitmap(0, 223, 16, 16, arrow_left);
+    LCD_Bitmap(24, 223, 16, 16, arrow_right);
+    text1 = "Select";
+    LCD_Print(text1, 48, 224, 1, 0xffff, 0x00);
+    LCD_Bitmap(120, 223, 16, 16, arrow_down);
+    text1 = "Next";
+    LCD_Print(text1, 144, 224, 1, 0xffff, 0x00);
+
     text1 = "1 Player";
-    LCD_Print(text1, 90, 135, 2, 0xffff, 0x1007);
+    LCD_Print(text1, 8, 140, 2, 0xffff, 0x1007);
     text1 = "2 Player";
-    LCD_Print(text1, 90, 180, 2, 0xffff, 0x1007);
+    LCD_Print(text1, 185, 140, 2, 0xffff, 0x1007);
     started = 1;
     return (started);
 }
@@ -717,4 +811,15 @@ void characterMenu (void){
       Serial.println("error opening Aina.txt");
     }
     Serial.println("Aina cargado exitosamente");
+
+    LCD_Bitmap(0, 223, 16, 16, arrow_left);
+    LCD_Bitmap(24, 223, 16, 16, arrow_right);
+    text2 = "Select";
+    LCD_Print(text2, 48, 224, 1, 0xffff, 0x00);
+    LCD_Bitmap(120, 223, 16, 16, arrow_down);
+    text2 = "Next";
+    LCD_Print(text2, 144, 224, 1, 0xffff, 0x00);
+    LCD_Bitmap(200, 223, 16, 16, arrow_up);
+    text2 = "Return";
+    LCD_Print(text2, 224, 224, 1, 0xffff, 0x00);
 }

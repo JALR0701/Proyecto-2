@@ -51,19 +51,19 @@ void LCD_Sprite(int x, int y, int width, int height, unsigned char bitmap[],int 
 
 int Game_Menu(int started);
 void characterMenu(void);
+void musicMenu(void);
 
 //***************************************************************************************************************************************
 // Variables
 //***************************************************************************************************************************************
 
-int modeSelect = 1;
-int started = 0, chooseCharacter = 0;;
+int modeSelect = 1, characterSelect = 1, songSelect = 1;
+int started = 0, chooseCharacter = 0, chooseSong = 0;
 String text;
 int button;
 int escritor = 0;
 int PinBuzzer = PC_4;
 int up = 56, left = 52, down = 50, right = 54;
-int characterSelect = 1;
 
 //***************************************************************************************************************************************
 // Inicialización
@@ -227,9 +227,55 @@ void loop() {
         delay(170);    
         noTone(PinBuzzer);
         chooseCharacter = 0;
+        chooseSong = 1;
+        musicMenu();
         Serial.print("Personaje escogido: ");
         Serial.println(characterSelect);
       }
+    }
+  }
+  while (chooseSong == 1){
+    button = Serial.read();
+    if (songSelect == 1){
+      text = "The Legend of Zelda - Zelda's Lullaby";
+      LCD_Print(text, 8, 105, 1, 0xffff, 0x00);
+    }else if (songSelect == 2){
+      text = "Led Zepellin - StairWay To Heaven";
+      LCD_Print(text, 30, 105, 1, 0xffff, 0x00);
+    }else if (songSelect == 3){
+      text = "Kirby - Gourmet Race";
+      LCD_Print(text, 80, 105, 1, 0xffff, 0x00);
+    }
+    if (button == right){
+      tone(PinBuzzer, 440, 100 * .7);
+      songSelect ++;
+      FillRect(0, 104, 320, 16, 0x00);
+      if(songSelect >= 3){
+        songSelect = 3;
+      }
+    }else if (button == left){
+      tone(PinBuzzer, 440, 100 * .7);
+      songSelect --;
+      FillRect(0, 104, 320, 16, 0x00);
+      if(songSelect <= 1){
+        songSelect = 1;
+      }
+    }else if (button == up){
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 500, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 440, 170 * .7);
+        delay(170);    
+        noTone(PinBuzzer);
+        tone(PinBuzzer, 500, 170 * .7);
+        chooseCharacter = 1;
+        escritor = 0;
+        chooseSong = 0;
+        characterMenu();
+        Serial.println("Menu Personaje");
     }
   }
 }
@@ -822,4 +868,75 @@ void characterMenu (void){
     LCD_Bitmap(200, 223, 16, 16, arrow_up);
     text2 = "Return";
     LCD_Print(text2, 224, 224, 1, 0xffff, 0x00);
+}
+
+void musicMenu (void){
+  File myFile;
+  String palabra;
+  char caracter;
+  char numero [5];
+  int bits = 0, posx = 0, posy = 0, val = 0, color = 0; 
+
+  LCD_Clear(0x00);
+  String text3 = "Loading...";
+  LCD_Print(text3, 85, 120, 2, 0xffff, 0x00);
+  
+//***************************************************************************************************************************************
+// Imprimir fondo de pantalla en la LCD
+//***************************************************************************************************************************************
+
+  myFile = SD.open("MUSICA~1.txt");
+    if (myFile) {
+      Serial.println("MUSICA~1.txt:");
+  
+      // read from the file until there's nothing else in it:
+      while (myFile.available()) {
+        caracter = char(myFile.read());
+        //Serial.print(caracter);
+        if (caracter == ','){
+          palabra.toCharArray(numero, 5);
+          val = strtol(numero, NULL, 16);
+          fondo[bits] = (val);
+          palabra = "";
+          bits++;
+        }else if (caracter == ' '){
+          
+        }else {
+          palabra.concat(caracter);
+        }
+        if (bits == 640){
+          //Serial.println();
+//          for (int x = 0; x <= 640; x++){
+//            Serial.print(fondo[x]);
+//          }
+          LCD_Bitmap(0, posy, 320, 1, fondo);
+          bits = 0;
+          posy += 1;
+        }
+      }
+      // close the file:
+      myFile.close();
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("error opening MUSICA~1.txt");
+    }
+    Serial.println("Fondo de musica cargado exitosamente");
+
+//***************************************************************************************************************************************
+// Fondo de pantalla cargado exitosamente
+//***************************************************************************************************************************************
+
+    FillRect(0, 104, 320, 16, 0x00);
+
+    FillRect(0, 222, 320, 18, 0x00);
+    LCD_Bitmap(0, 223, 16, 16, arrow_left);
+    LCD_Bitmap(24, 223, 16, 16, arrow_right);
+    text3 = "Select";
+    LCD_Print(text3, 48, 224, 1, 0xffff, 0x00);
+    LCD_Bitmap(120, 223, 16, 16, arrow_down);
+    text3 = "Next";
+    LCD_Print(text3, 144, 224, 1, 0xffff, 0x00);
+    LCD_Bitmap(200, 223, 16, 16, arrow_up);
+    text3 = "Return";
+    LCD_Print(text3, 224, 224, 1, 0xffff, 0x00);
 }

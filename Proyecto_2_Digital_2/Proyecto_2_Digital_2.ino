@@ -99,7 +99,7 @@ void setup() {
   pinMode(PC_7, INPUT);
   pinMode(PA_6, INPUT);
   pinMode(PE_3, INPUT);
-  pinMode(PA_7, INPUT);
+  pinMode(PE_2, INPUT);
   pinMode(PF_1, INPUT);
   SysCtlClockSet(SYSCTL_SYSDIV_2_5|SYSCTL_USE_PLL|SYSCTL_OSC_MAIN|SYSCTL_XTAL_16MHZ);
   Serial.begin(9600);
@@ -426,7 +426,7 @@ void loop() {
           LCD_Print(text, 264, 135, 1, 0x00, 0xffff);
         }
         if (rebote == 0){
-          if (PC_7 == 1){
+          if (digitalRead(PC_7) == 1){
             rebote = 1;
             tone(PinBuzzer, 440, 170 * .7);
             delay(170);    
@@ -442,21 +442,21 @@ void loop() {
             escritor = 0;
             Game_Menu();
             Serial.println("Menu principal");
-          }else if (PE_3 == 1){
+          }else if (digitalRead(PE_3) == 1){
             rebote = 1;
             tone(PinBuzzer, 440, 100 * .7);
             characterSelect2 --;
             if (characterSelect2 < 1){
               characterSelect2 = 4;
             }
-          }else if (PF_1 == 1){
+          }else if (digitalRead(PF_1) == 1){
             rebote = 1;
             tone(PinBuzzer, 440, 100 * .7);
             characterSelect2 ++;
             if (characterSelect2 > 4){
               characterSelect2 = 1;
             }
-          }else if (PA_7 == 1){
+          }else if (digitalRead(PE_2) == 1){
             rebote = 1;
             tone(PinBuzzer, 500, 170 * .7);
             delay(170);    
@@ -477,7 +477,7 @@ void loop() {
             musicMenu();
           }
         }else if (rebote == 1){
-          if (digitalRead(PD_6) == 0 and digitalRead(PD_7) == 0 and digitalRead(PC_7) == 0 and digitalRead(PF_4) == 0){
+          if (digitalRead(PA_6) == 0 and digitalRead(PE_3) == 0 and digitalRead(PA_7) == 0 and digitalRead(PF_1) == 0){
             rebote = 0;
           }
         }
@@ -1841,8 +1841,9 @@ void gamePlay(int song, int character1, int character2){
     FillRect(108, 64, 104, 160, 0x00);
     
   }else if (modeSelect == 2){
-    FillRect(32, 64, 104, 160, 0x00);
-    FillRect(184, 64, 104, 160, 0x00);
+    FillRect(108, 64, 104, 160, 0x00);
+//    FillRect(32, 64, 104, 160, 0x00);
+//    FillRect(184, 64, 104, 160, 0x00);
     
   }
 }

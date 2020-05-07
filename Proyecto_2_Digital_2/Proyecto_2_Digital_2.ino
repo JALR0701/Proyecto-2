@@ -78,6 +78,16 @@ int noteDurations[] = {
 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 176, 1056
 };
 
+int melody1[] = {330, 392, 294, 262, 294, 330, 392, 294, 330, 392, 587, 523, 392, 349, 330, 294, 330, 392, 294, 262, 294, 330, 392, 294, 330, 392, 587, 523, 392, 349, 330, 349, 330, 262, 349, 330, 294, 330, 294, 220, 392, 349, 330, 349, 330, 262, 349, 523};
+int noteDurations1[] = {1111, 556, 1111, 278, 278, 1111, 556, 1667, 1111, 556, 1111, 556, 1111, 278, 278, 1667, 1111, 556, 1111, 278, 278, 1111, 556, 1667, 1111, 556, 1111, 556, 1111, 278, 278, 278, 278, 1111, 1111, 278, 278, 278, 278, 1111, 1111, 278, 278, 278, 278, 556, 556, 1667};
+
+int melody2[] = {440, 523, 659, 880, 988, 659, 523, 988, 1047, 659, 523, 1047, 740, 587, 440, 740, 659, 523, 440, 523, 0, 659, 523, 440, 392, 440, 440, 0, 0, 440, 698, 659, 440, 440, 523, 659, 988, 659, 523, 988, 1047, 659, 523, 1047, 740, 587, 440, 740, 659, 523, 440, 523, 0, 659, 523, 440, 392, 440, 440, 0, 0, 0, 440, 494, 523, 659, 784, 523, 494, 587, 784, 494, 494, 523, 440, 440, 523, 659, 880, 440, 494, 523, 392, 262, 523, 784, 587, 392, 784, 784, 740, 587, 587, 0, 0, 440, 494, 523, 659, 784, 523, 494, 587, 784, 494, 494, 523, 440, 440, 523, 659, 880, 440, 494, 523, 659, 784, 1047, 587, 740, 880, 1175, 659, 659, 659, 0, 0};
+int noteDurations2[] = {405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 810, 270, 405, 405, 405, 405, 405, 405, 405, 810, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 810, 270, 405, 405, 405, 405, 405, 405, 405, 810, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 203, 203, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 203, 203, 405, 810, 270, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 203, 203, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 405, 1620, 810, 810};
+
+int melody3[] = {784, 698, 622, 587, 466, 392, 523, 587, 622, 698, 587, 0, 1047, 784, 622, 587, 523, 523, 587, 622, 523, 466, 523, 392, 1047, 784, 622, 587, 523, 523, 587, 622, 698, 587, 466, 523, 392, 523, 587, 622, 698, 784, 831, 1047, 1047, 784, 622, 587, 523, 523, 587, 622, 523, 466, 523, 392, 1047, 784, 622, 698, 784, 523, 587, 698, 587, 466, 523, 349, 349, 415, 523, 622, 587, 523, 392, 349, 349, 415, 523, 622, 698, 784, 831, 784, 698, 622, 698, 784, 523, 784, 698, 698, 698, 622, 587, 622, 698, 622, 698, 784, 622, 349, 349, 415, 523, 622, 587, 523, 392, 349, 349, 415, 523, 622, 698, 784, 831, 784, 698, 831, 933, 1047, 784, 622, 523, 587, 587, 587, 698, 587, 466, 392, 466, 523, 466, 622, 622, 622, 622, 622, 698, 784, 784, 784, 698, 622, 587, 587, 587, 587, 587, 622, 587, 622, 587, 523, 523, 523, 523, 523, 587, 622, 622, 622, 587, 523, 466, 466, 466, 466, 523, 587, 523, 466, 415, 415, 415, 415, 466, 523, 523, 523, 466, 415, 392, 392, 392, 622, 698, 622, 466, 622, 622, 622, 622, 698, 740, 740, 740, 831, 740, 698, 698, 698, 698, 740, 698, 784, 698, 622, 622, 622, 622, 622, 698, 784, 784, 784, 698, 622, 587, 587, 587, 587, 587, 622, 587, 622, 587, 523, 523, 523, 523, 523, 587, 622, 622, 622, 587, 523, 466, 466, 466, 466, 523, 587, 523, 466, 415, 415, 415, 415, 466, 523, 523, 523, 587, 698, 784, 784, 784, 784, 933, 784, 784, 698, 622, 587, 698, 784, 587, 698, 784, 587, 698, 587, 698, 784, 1047, 988, 523, 587, 622, 698, 0};
+int noteDurations3[] = {308, 154, 154, 154, 154, 308, 154, 154, 154, 154, 308, 308, 616, 616, 308, 308, 616, 308, 308, 308, 308, 308, 308, 616, 616, 616, 308, 308, 308, 154, 154, 308, 308, 308, 308, 308, 308, 154, 77, 77, 77, 77, 77, 77, 616, 616, 308, 308, 616, 308, 308, 308, 308, 308, 308, 616, 616, 616, 308, 308, 308, 308, 308, 308, 308, 308, 1232, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 616, 462, 154, 308, 154, 154, 308, 308, 616, 231, 77, 154, 154, 308, 154, 154, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 616, 462, 154, 308, 154, 154, 308, 308, 308, 308, 231, 77, 154, 154, 154, 154, 154, 154, 924, 308, 154, 77, 77, 154, 77, 77, 154, 77, 77, 154, 154, 154, 77, 77, 154, 77, 77, 462, 77, 77, 154, 77, 77, 154, 77, 77, 154, 77, 77, 154, 154, 154, 77, 77, 154, 154, 462, 77, 77, 154, 77, 77, 154, 154, 154, 77, 77, 154, 154, 154, 77, 77, 154, 154, 308, 308, 154, 77, 77, 231, 77, 154, 77, 77, 154, 154, 154, 77, 77, 154, 154, 462, 77, 77, 154, 77, 77, 154, 77, 77, 154, 77, 77, 154, 154, 154, 77, 77, 154, 77, 77, 462, 77, 77, 154, 77, 77, 154, 77, 77, 154, 77, 77, 154, 154, 154, 77, 77, 154, 154, 462, 77, 77, 154, 77, 77, 154, 154, 154, 77, 77, 154, 154, 154, 77, 77, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 154, 308, 77, 77, 77, 77, 0};
+
+
 //***************************************************************************************************************************************
 // Inicialización
 //***************************************************************************************************************************************
@@ -534,9 +544,483 @@ void loop() {
     }
   }
   while (game == 1){
+    if(songSelect == 1){
+      GamePlaySong1();
+    }
+    if(songSelect == 2){
+      GamePlaySong2();
+    }
+    if(songSelect == 3){
+      GamePlaySong3();
+    }
 
   }
 }
+
+void GamePlaySong1(void){
+  int P1SC = 0;
+  int P2SC = 0;
+    int thisNote = 0;
+    int x = 84;
+    while( x <202){
+        delay(10);
+        LCD_Bitmap(112, x, 16, 16, arrow_up);
+        LCD_Bitmap(138, x, 16, 16, arrow_left);
+        LCD_Bitmap(167, x, 16, 16, arrow_right);
+        LCD_Bitmap(193, x, 16, 16, arrow_down);
+        x++;
+    }
+   x = 85;
+   int s = 1600/noteDurations1[0];
+   int frand = 1;
+    while(thisNote <= sizeof(melody1)){
+      if(thisNote < sizeof(melody1)-1){
+          if(x<=202){
+            delay(10);
+            switch (frand) {
+              case 1:
+                LCD_Bitmap(112, x, 16, 16, arrow_up);// statements
+                LCD_Bitmap(112, x-16, 16, 16, bArrow);
+                break;
+              case 2:
+                LCD_Bitmap(138, x, 16, 16, arrow_left);// statements
+                LCD_Bitmap(138, x-16, 16, 16, bArrow);
+                break;
+              case 3:
+                LCD_Bitmap(167, x, 16, 16, arrow_right);// statements
+                LCD_Bitmap(167, x-16, 16, 16, bArrow);
+                break;
+              case 4:
+                LCD_Bitmap(193, x, 16, 16, arrow_down);// statements
+                LCD_Bitmap(193, x-16, 16, 16, bArrow);
+                break;
+              default:
+                LCD_Bitmap(112, x, 16, 16, arrow_up);// statements
+                LCD_Bitmap(112, x-16, 16, 16, bArrow);
+                break;
+            }
+            
+            x = x + s;
+            }
+      }
+      unsigned long currentMillis = millis();
+        if(thisNote != (sizeof(melody1)/sizeof(int))){
+          if ((currentMillis - previousMillis) < noteDurations1[thisNote]){
+            if (melody1[thisNote] == 0) {
+                noTone(PinBuzzer);
+              } else {
+                tone(PinBuzzer, melody1[thisNote]);
+              }
+          }else {
+            previousMillis = currentMillis;
+            noTone(PinBuzzer);
+            thisNote++;
+            switch(frand){
+              case 1:
+                if(digitalRead(PC_6) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PA_6) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 2:
+                if(digitalRead(PD_6) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PE_3) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 3:
+                if(digitalRead(PD_7) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PA_7) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 4:
+                if(digitalRead(PF_4) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PF_1) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+            }
+            if(P1SC < 0){
+              P1SC = 0;
+            }
+            Serial.println(P1SC);
+            x = 85;
+            LCD_Bitmap(112, 186, 16, 16, bArrow);
+            LCD_Bitmap(138, 186, 16, 16, bArrow);
+            LCD_Bitmap(167, 186, 16, 16, bArrow);
+            LCD_Bitmap(193, 186, 16, 16, bArrow);
+            LCD_Bitmap(112, 170, 16, 16, bArrow);
+            LCD_Bitmap(138, 170, 16, 16, bArrow);
+            LCD_Bitmap(167, 170, 16, 16, bArrow);
+            LCD_Bitmap(193, 170, 16, 16, bArrow);
+            LCD_Bitmap(112, 202, 16, 16, arrow_up);
+            LCD_Bitmap(138, 202, 16, 16, arrow_left);
+            LCD_Bitmap(167, 202, 16, 16, arrow_right);
+            LCD_Bitmap(193, 202, 16, 16, arrow_down);
+            s = 1600/noteDurations1[thisNote];
+            if (s <= 2){
+              s++;
+            }
+            Serial.println(s);
+            frand = random(1,5);
+          }
+        }else{
+          x = 84;
+          while( x <=202){
+              delay(10);
+              LCD_Bitmap(112, x, 16, 16, arrow_up);
+              LCD_Bitmap(138, x, 16, 16, arrow_left);
+              LCD_Bitmap(167, x, 16, 16, arrow_right);
+              LCD_Bitmap(193, x, 16, 16, arrow_down);
+              x++;
+          }
+          break;
+        }
+    }
+    LCD_Print("DONE!", 120, 100, 2, 0xffff, 0x00);
+    LCD_Print("P1", 40, 50, 2, 0xffff, 0x00);
+    LCD_Print("SCORE:", 5, 100, 2, 0xffff, 0x00);
+    LCD_Print(String(P1SC), 30, 130, 2, 0xffff, 0x00);
+    if (modeSelect == 2){
+      LCD_Print("P2", 250, 50, 2, 0xffff, 0x00);
+      LCD_Print("SCORE:", 215, 100, 2, 0xffff, 0x00);
+      LCD_Print(String(P2SC), 240, 130, 2, 0xffff, 0x00);
+    }
+    tone(PinBuzzer, 0);
+    noTone(PinBuzzer);
+    delay(2000);
+    game = 0;
+}
+
+void GamePlaySong2(void){
+  int P2SC = 0;
+  int P1SC = 0;
+    int thisNote = 0;
+    int x = 84;
+    while( x <202){
+        delay(10);
+        LCD_Bitmap(112, x, 16, 16, arrow_up);
+        LCD_Bitmap(138, x, 16, 16, arrow_left);
+        LCD_Bitmap(167, x, 16, 16, arrow_right);
+        LCD_Bitmap(193, x, 16, 16, arrow_down);
+        x++;
+    }
+   x = 90;
+   int s = 1600/noteDurations2[0];
+   int frand = 1;
+    while(thisNote <= sizeof(melody2)){
+      if(thisNote < sizeof(melody2)-1){
+          if(x<=202){
+            delay(10);
+            switch (frand) {
+              case 1:
+                LCD_Bitmap(112, x, 16, 16, arrow_up);// statements
+                LCD_Bitmap(112, x-16, 16, 16, bArrow);
+                break;
+              case 2:
+                LCD_Bitmap(138, x, 16, 16, arrow_left);// statements
+                LCD_Bitmap(138, x-16, 16, 16, bArrow);
+                break;
+              case 3:
+                LCD_Bitmap(167, x, 16, 16, arrow_right);// statements
+                LCD_Bitmap(167, x-16, 16, 16, bArrow);
+                break;
+              case 4:
+                LCD_Bitmap(193, x, 16, 16, arrow_down);// statements
+                LCD_Bitmap(193, x-16, 16, 16, bArrow);
+                break;
+              default:
+                LCD_Bitmap(112, x, 16, 16, arrow_up);// statements
+                LCD_Bitmap(112, x-16, 16, 16, bArrow);
+                break;
+            }
+            
+            x = x + s;
+            }
+      }
+      unsigned long currentMillis = millis();
+        if(thisNote != (sizeof(melody2)/sizeof(int))){
+          if ((currentMillis - previousMillis) < noteDurations2[thisNote]){
+            if (melody1[thisNote] == 0) {
+                noTone(PinBuzzer);
+              } else {
+                tone(PinBuzzer, melody2[thisNote]);
+              }
+          }else {
+            previousMillis = currentMillis;
+            noTone(PinBuzzer);
+            thisNote++;
+            switch(frand){
+              case 1:
+                if(digitalRead(PC_6) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PA_6) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 2:
+                if(digitalRead(PD_6) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PE_3) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 3:
+                if(digitalRead(PD_7) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PA_7) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 4:
+                if(digitalRead(PF_4) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PF_1) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+            }
+            if(P1SC < 0){
+              P1SC = 0;
+            }
+            Serial.println(P1SC);
+            x = 90;
+            LCD_Bitmap(112, 186, 16, 16, bArrow);
+            LCD_Bitmap(138, 186, 16, 16, bArrow);
+            LCD_Bitmap(167, 186, 16, 16, bArrow);
+            LCD_Bitmap(193, 186, 16, 16, bArrow);
+            LCD_Bitmap(112, 202, 16, 16, arrow_up);
+            LCD_Bitmap(138, 202, 16, 16, arrow_left);
+            LCD_Bitmap(167, 202, 16, 16, arrow_right);
+            LCD_Bitmap(193, 202, 16, 16, arrow_down);
+            s = 1600/noteDurations2[thisNote];
+            s++;
+            frand = random(1,5);
+          }
+        }else{
+          x = 84;
+          while( x <=202){
+              delay(10);
+              LCD_Bitmap(112, x, 16, 16, arrow_up);
+              LCD_Bitmap(138, x, 16, 16, arrow_left);
+              LCD_Bitmap(167, x, 16, 16, arrow_right);
+              LCD_Bitmap(193, x, 16, 16, arrow_down);
+              x++;
+          }
+          break;
+        }
+    }
+    LCD_Print("DONE!", 120, 100, 2, 0xffff, 0x00);
+    LCD_Print("P1", 40, 50, 2, 0xffff, 0x00);
+    LCD_Print("SCORE:", 5, 100, 2, 0xffff, 0x00);
+    LCD_Print(String(P1SC), 30, 130, 2, 0xffff, 0x00);
+    if (modeSelect == 2){
+      LCD_Print("P2", 250, 50, 2, 0xffff, 0x00);
+      LCD_Print("SCORE:", 215, 100, 2, 0xffff, 0x00);
+      LCD_Print(String(P2SC), 240, 130, 2, 0xffff, 0x00);
+    }
+    tone(PinBuzzer, 0);
+    noTone(PinBuzzer);
+    delay(2000);
+    game = 0;
+}
+
+void GamePlaySong3(void){
+  int P2SC = 0;
+  int P1SC = 0;
+    int thisNote = 0;
+    int x = 84;
+    while( x <202){
+        delay(10);
+        LCD_Bitmap(112, x, 16, 16, arrow_up);
+        LCD_Bitmap(138, x, 16, 16, arrow_left);
+        LCD_Bitmap(167, x, 16, 16, arrow_right);
+        LCD_Bitmap(193, x, 16, 16, arrow_down);
+        x++;
+    }
+   x = 90;
+   int s = 1600/noteDurations3[0];
+   int frand = 1;
+    while(thisNote <= sizeof(melody3)){
+      if(thisNote < sizeof(melody3)-1){
+          if(x<=205){
+            delay(10);
+            switch (frand) {
+              case 1:
+                LCD_Bitmap(112, x, 16, 16, arrow_up);// statements
+                LCD_Bitmap(112, x-16, 16, 16, bArrow);
+                break;
+              case 2:
+                LCD_Bitmap(138, x, 16, 16, arrow_left);// statements
+                LCD_Bitmap(138, x-16, 16, 16, bArrow);
+                break;
+              case 3:
+                LCD_Bitmap(167, x, 16, 16, arrow_right);// statements
+                LCD_Bitmap(167, x-16, 16, 16, bArrow);
+                break;
+              case 4:
+                LCD_Bitmap(193, x, 16, 16, arrow_down);// statements
+                LCD_Bitmap(193, x-16, 16, 16, bArrow);
+                break;
+              default:
+                LCD_Bitmap(112, x, 16, 16, arrow_up);// statements
+                LCD_Bitmap(112, x-16, 16, 16, bArrow);
+                break;
+            }
+            
+            x = x + s;
+            }
+      }
+      unsigned long currentMillis = millis();
+        if(thisNote != (sizeof(melody3)/sizeof(int))){
+          if ((currentMillis - previousMillis) < noteDurations3[thisNote]){
+            if (melody3[thisNote] == 0) {
+                noTone(PinBuzzer);
+              } else {
+                tone(PinBuzzer, melody3[thisNote]);
+              }
+          }else {
+            previousMillis = currentMillis;
+            noTone(PinBuzzer);
+            thisNote++;
+            switch(frand){
+              case 1:
+                if(digitalRead(PC_6) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PA_6) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 2:
+                if(digitalRead(PD_6) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PE_3) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 3:
+                if(digitalRead(PD_7) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PA_7) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+              case 4:
+                if(digitalRead(PF_4) == HIGH){
+                  P1SC = P1SC + 20;
+                } else{
+                  P1SC--;
+                }
+                if(digitalRead(PF_1) == HIGH){
+                  P2SC = P2SC + 20;
+                } else{
+                  P2SC--;
+                }
+                break;
+            }
+            if(P1SC < 0){
+              P1SC = 0;
+            }
+            x = 90;
+            LCD_Bitmap(112, 186, 16, 16, bArrow);
+            LCD_Bitmap(138, 186, 16, 16, bArrow);
+            LCD_Bitmap(167, 186, 16, 16, bArrow);
+            LCD_Bitmap(193, 186, 16, 16, bArrow);
+            LCD_Bitmap(112, 202, 16, 16, arrow_up);
+            LCD_Bitmap(138, 202, 16, 16, arrow_left);
+            LCD_Bitmap(167, 202, 16, 16, arrow_right);
+            LCD_Bitmap(193, 202, 16, 16, arrow_down);
+            s = 1600/noteDurations3[thisNote];
+            frand = random(1,5);
+          }
+        }else{
+          x = 84;
+          while( x <=202){
+              delay(10);
+              LCD_Bitmap(112, x, 16, 16, arrow_up);
+              LCD_Bitmap(138, x, 16, 16, arrow_left);
+              LCD_Bitmap(167, x, 16, 16, arrow_right);
+              LCD_Bitmap(193, x, 16, 16, arrow_down);
+              x++;
+          }
+          break;
+        }
+    }
+    LCD_Print("DONE!", 120, 100, 2, 0xffff, 0x00);
+    LCD_Print("P1", 40, 50, 2, 0xffff, 0x00);
+    LCD_Print("SCORE:", 5, 100, 2, 0xffff, 0x00);
+    LCD_Print(String(P1SC), 30, 130, 2, 0xffff, 0x00);
+    if (modeSelect == 2){
+      LCD_Print("P2", 250, 50, 2, 0xffff, 0x00);
+      LCD_Print("SCORE:", 215, 100, 2, 0xffff, 0x00);
+      LCD_Print(String(P2SC), 240, 130, 2, 0xffff, 0x00);
+    }
+    tone(PinBuzzer, 0);
+    noTone(PinBuzzer);
+    delay(2000);
+    game = 0;
+}
+
 //***************************************************************************************************************************************
 // Función para inicializar LCD
 //***************************************************************************************************************************************

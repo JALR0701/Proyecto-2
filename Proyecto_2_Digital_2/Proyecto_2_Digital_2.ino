@@ -97,6 +97,10 @@ void setup() {
   pinMode(PD_7, INPUT);
   pinMode(PD_6, INPUT);
   pinMode(PC_7, INPUT);
+  pinMode(PA_6, INPUT);
+  pinMode(PE_3, INPUT);
+  pinMode(PA_7, INPUT);
+  pinMode(PF_1, INPUT);
   SysCtlClockSet(SYSCTL_SYSDIV_2_5|SYSCTL_USE_PLL|SYSCTL_OSC_MAIN|SYSCTL_XTAL_16MHZ);
   Serial.begin(9600);
   while (!Serial) {
@@ -421,51 +425,61 @@ void loop() {
           text = "Aina";
           LCD_Print(text, 264, 135, 1, 0x00, 0xffff);
         }
-        if (button == up){
-          tone(PinBuzzer, 440, 170 * .7);
-          delay(170);    
-          noTone(PinBuzzer);
-          tone(PinBuzzer, 500, 170 * .7);
-          delay(170);    
-          noTone(PinBuzzer);
-          tone(PinBuzzer, 440, 170 * .7);
-          delay(170);    
-          noTone(PinBuzzer);
-          tone(PinBuzzer, 500, 170 * .7);
-          chooseCharacter = 0;
-          escritor = 0;
-          Game_Menu();
-          Serial.println("Menu principal");
-        }else if (button == left2){
-          tone(PinBuzzer, 440, 100 * .7);
-          characterSelect2 --;
-          if (characterSelect2 < 1){
-            characterSelect2 = 4;
+        if (rebote == 0){
+          if (PC_7 == 1){
+            rebote = 1;
+            tone(PinBuzzer, 440, 170 * .7);
+            delay(170);    
+            noTone(PinBuzzer);
+            tone(PinBuzzer, 500, 170 * .7);
+            delay(170);    
+            noTone(PinBuzzer);
+            tone(PinBuzzer, 440, 170 * .7);
+            delay(170);    
+            noTone(PinBuzzer);
+            tone(PinBuzzer, 500, 170 * .7);
+            chooseCharacter = 0;
+            escritor = 0;
+            Game_Menu();
+            Serial.println("Menu principal");
+          }else if (PE_3 == 1){
+            rebote = 1;
+            tone(PinBuzzer, 440, 100 * .7);
+            characterSelect2 --;
+            if (characterSelect2 < 1){
+              characterSelect2 = 4;
+            }
+          }else if (PF_1 == 1){
+            rebote = 1;
+            tone(PinBuzzer, 440, 100 * .7);
+            characterSelect2 ++;
+            if (characterSelect2 > 4){
+              characterSelect2 = 1;
+            }
+          }else if (PA_7 == 1){
+            rebote = 1;
+            tone(PinBuzzer, 500, 170 * .7);
+            delay(170);    
+            noTone(PinBuzzer);
+            tone(PinBuzzer, 440, 170 * .7);
+            delay(170);    
+            noTone(PinBuzzer);
+            tone(PinBuzzer, 500, 170 * .7);
+            delay(170);    
+            noTone(PinBuzzer);
+            tone(PinBuzzer, 440, 170 * .7);
+            delay(170);    
+            noTone(PinBuzzer);
+            Serial.print("2Personaje escogido: ");
+            Serial.println(characterSelect2);
+            chooseCharacter = 0;
+            chooseSong = 1;
+            musicMenu();
           }
-        }else if (button == right2){
-          tone(PinBuzzer, 440, 100 * .7);
-          characterSelect2 ++;
-          if (characterSelect2 > 4){
-            characterSelect2 = 1;
+        }else if (rebote == 1){
+          if (digitalRead(PD_6) == 0 and digitalRead(PD_7) == 0 and digitalRead(PC_7) == 0 and digitalRead(PF_4) == 0){
+            rebote = 0;
           }
-        }else if (button == down2){
-          tone(PinBuzzer, 500, 170 * .7);
-          delay(170);    
-          noTone(PinBuzzer);
-          tone(PinBuzzer, 440, 170 * .7);
-          delay(170);    
-          noTone(PinBuzzer);
-          tone(PinBuzzer, 500, 170 * .7);
-          delay(170);    
-          noTone(PinBuzzer);
-          tone(PinBuzzer, 440, 170 * .7);
-          delay(170);    
-          noTone(PinBuzzer);
-          Serial.print("2Personaje escogido: ");
-          Serial.println(characterSelect2);
-          chooseCharacter = 0;
-          chooseSong = 1;
-          musicMenu();
         }
       }
     }
@@ -483,7 +497,7 @@ void loop() {
       LCD_Print(text, 80, 105, 1, 0xffff, 0x00);
     }
     if (rebote == 0){
-      if (digitalRead(PD_6) == 1){
+      if (digitalRead(PD_7) == 1){
         rebote = 1;
         tone(PinBuzzer, 440, 100 * .7);
         songSelect ++;
@@ -491,7 +505,7 @@ void loop() {
         if(songSelect > 3){
           songSelect = 1;
         }
-      }else if (digitalRead(PD_7) == 1){
+      }else if (digitalRead(PD_6) == 1){
         rebote = 1;
         tone(PinBuzzer, 440, 100 * .7);
         songSelect --;

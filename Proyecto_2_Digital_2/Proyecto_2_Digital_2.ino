@@ -631,7 +631,7 @@ void GamePlaySong1(void){
             thisNote++;
             switch(frand){
               case 1:
-                if(digitalRead(PC_6) == HIGH){
+                if(digitalRead(PC_7) == HIGH){
                   P1SC = P1SC + 20;
                 } else{
                   P1SC--;
@@ -660,7 +660,7 @@ void GamePlaySong1(void){
                 } else{
                   P1SC--;
                 }
-                if(digitalRead(PA_7) == HIGH){
+                if(digitalRead(PF_1) == HIGH){
                   P2SC = P2SC + 20;
                 } else{
                   P2SC--;
@@ -672,7 +672,7 @@ void GamePlaySong1(void){
                 } else{
                   P1SC--;
                 }
-                if(digitalRead(PF_1) == HIGH){
+                if(digitalRead(PE_2) == HIGH){
                   P2SC = P2SC + 20;
                 } else{
                   P2SC--;
@@ -681,6 +681,9 @@ void GamePlaySong1(void){
             }
             if(P1SC < 0){
               P1SC = 0;
+            }
+            if(P2SC < 0){
+              P2SC = 0;
             }
             Serial.println(P1SC);
             x = 85;
@@ -791,7 +794,7 @@ void GamePlaySong2(void){
             thisNote++;
             switch(frand){
               case 1:
-                if(digitalRead(PC_6) == HIGH){
+                if(digitalRead(PC_7) == HIGH){
                   P1SC = P1SC + 20;
                 } else{
                   P1SC--;
@@ -820,7 +823,7 @@ void GamePlaySong2(void){
                 } else{
                   P1SC--;
                 }
-                if(digitalRead(PA_7) == HIGH){
+                if(digitalRead(PF_1) == HIGH){
                   P2SC = P2SC + 20;
                 } else{
                   P2SC--;
@@ -832,7 +835,7 @@ void GamePlaySong2(void){
                 } else{
                   P1SC--;
                 }
-                if(digitalRead(PF_1) == HIGH){
+                if(digitalRead(PE_2) == HIGH){
                   P2SC = P2SC + 20;
                 } else{
                   P2SC--;
@@ -841,6 +844,9 @@ void GamePlaySong2(void){
             }
             if(P1SC < 0){
               P1SC = 0;
+            }
+            if(P2SC < 0){
+              P2SC = 0;
             }
             Serial.println(P1SC);
             x = 90;
@@ -944,7 +950,7 @@ void GamePlaySong3(void){
             thisNote++;
             switch(frand){
               case 1:
-                if(digitalRead(PC_6) == HIGH){
+                if(digitalRead(PC_7) == HIGH){
                   P1SC = P1SC + 20;
                 } else{
                   P1SC--;
@@ -973,7 +979,7 @@ void GamePlaySong3(void){
                 } else{
                   P1SC--;
                 }
-                if(digitalRead(PA_7) == HIGH){
+                if(digitalRead(PF_1) == HIGH){
                   P2SC = P2SC + 20;
                 } else{
                   P2SC--;
@@ -985,7 +991,7 @@ void GamePlaySong3(void){
                 } else{
                   P1SC--;
                 }
-                if(digitalRead(PF_1) == HIGH){
+                if(digitalRead(PE_2) == HIGH){
                   P2SC = P2SC + 20;
                 } else{
                   P2SC--;
@@ -994,6 +1000,9 @@ void GamePlaySong3(void){
             }
             if(P1SC < 0){
               P1SC = 0;
+            }
+            if(P2SC < 0){
+              P2SC = 0;
             }
             x = 90;
             LCD_Bitmap(112, 186, 16, 16, bArrow);
